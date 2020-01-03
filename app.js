@@ -1,10 +1,25 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const morgan = require('morgan');
+const keyMongoDB = require('./config/keys.js');
 const app = express();
 const authRoutes = require('./routes/auth.routes');
 const analyticsRoutes = require('./routes/analytics.routes');
 const categoryRoutes = require('./routes/category.routes');
 const orderRoutes = require('./routes/order.routes');
 const positionRoutes = require('./routes/position.routes');
+
+
+mongoose.connect(keyMongoDB.mongoURI)
+  .then(() => console.log('MongoDB connected'))
+  .catch(error => console.log(error));
+
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(cors());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/analytics', analyticsRoutes);
