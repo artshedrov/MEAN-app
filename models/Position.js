@@ -14,7 +14,7 @@ const positionSchema = new Schema({
     ref: 'categories',
     type: Schema.Types.ObjectId
   },
-  users: {
+  user: {
     ref: 'users',
     type: Schema.Types.ObjectId
   }
